@@ -132,7 +132,7 @@ function getDetailPromo(sp) {
         case 'giareonline':
             var del = stringToNum(sp.price) - stringToNum(sp.promo.value);
             var span = `<span style="font-weight: bold">` + numToString(del) + `</span>`;
-            return `Sản phẩm sẽ được giảm ` + span + `₫ khi mua hàng online bằng thẻ VPBank hoặc tin nhắn SMS`;
+            return `Sản phẩm sẽ được giảm ` + span + `₫ khi mua hàng online thanh toán bằng thẻ`;
 
         default:
             var span = `<span style="font-weight: bold">61 xe Wave Alpha</span>`;

@@ -569,8 +569,9 @@ function addTableDonHang() {
             <td style="width: 13%">` + d.ma + `</td>
             <td style="width: 7%">` + d.khach + `</td>
             <td style="width: 20%">` + d.sp + `</td>
-            <td style="width: 15%">` + d.tongtien + `</td>
+            <td style="width: 15%">` + stringToNum(d.tongtien)+ `</td>
             <td style="width: 10%">` + d.ngaygio + `</td>
+            <td style="width: 10%">` + d.diaChi + `</td>
             <td style="width: 10%">` + d.tinhTrang + `</td>
             <td style="width: 10%">
                 <div class="tooltip">
@@ -584,7 +585,7 @@ function addTableDonHang() {
                 
             </td>
         </tr>`;
-        TONGTIEN += stringToNum(d.tongtien);
+        TONGTIEN += stringToNum(d.tongtien)+5000000;
     }
 
     s += `</table>`;
@@ -593,6 +594,7 @@ function addTableDonHang() {
 
 function getListDonHang(traVeDanhSachSanPham = false) {
     var u = getListUser();
+    console.log(u)
     var result = [];
     for(var i = 0; i < u.length; i++) {
         for(var j = 0; j < u[i].donhang.length; j++) {
@@ -601,7 +603,8 @@ function getListDonHang(traVeDanhSachSanPham = false) {
             for(var s of u[i].donhang[j].sp) {
                 var timsp = timKiemTheoMa(list_products, s.ma);
                 if(timsp.promo.name == 'giareonline') tongtien += stringToNum(timsp.promo.value);
-                else tongtien += stringToNum(timsp.price);
+                else tongtien += stringToNum(timsp.price)*s.soluong;
+                console.log(s.soluong);
             }
 
             // Ngày giờ
@@ -624,11 +627,12 @@ function getListDonHang(traVeDanhSachSanPham = false) {
 
             // Lưu vào result
             result.push({
-                "ma": u[i].donhang[j].ngaymua.toString(),
+                "ma": u[i].donhang[j].maDH,
                 "khach": u[i].username,
                 "sp": traVeDanhSachSanPham ? danhSachSanPham : sps,
                 "tongtien": numToString(tongtien),
                 "ngaygio": x,
+                'diaChi':u[i].donhang[j].diaChi,
                 "tinhTrang": u[i].donhang[j].tinhTrang
             });
         }

@@ -158,16 +158,28 @@ function handleSubmit(){
     }
      });
     if(inputValue){
+        var diaChi =document.querySelector('#address');
+        console.log(diaChi);
         currentuser.donhang.push({
         "sp": currentuser.products,
         "ngaymua": new Date(),
+        'maDH':generateRandomString(10),
+        'diaChi': diaChi.value,
         "tinhTrang": 'Đang chờ xử lý'
         });
         currentuser.products = [];
         capNhatMoiThu();
     }    
 }
-
+function generateRandomString(length) {
+    var characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var result = '';
+    for (var i = 0; i < length; i++) {
+      var randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+    return result;
+  }
 /*Kiểm tra xem khách hàng đã chọn phương thức thannh toán chưa*/
 function checkPaymentMethod() {
 var paymentMethods = document.getElementsByName("payment-method");
